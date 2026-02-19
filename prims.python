@@ -1,0 +1,43 @@
+import heapq
+
+def prim_mst(V, adj):
+    visited = [False] * V
+    min_heap = [(0, 0)]  
+    total_cost = 0
+    edge_count = 0
+
+    print("\nEdges in the Minimum Spanning Tree:")
+
+    while min_heap and edge_count < V:
+        weight, u = heapq.heappop(min_heap)
+
+        if visited[u]:
+            continue
+
+        visited[u] = True
+        total_cost += weight
+        edge_count += 1
+
+        if weight != 0:
+            print(f"Selected vertex: {u}, Edge Weight: {weight}")
+
+        for v, w in adj[u]:
+            if not visited[v]:
+                heapq.heappush(min_heap, (w, v))
+
+    print("Total Cost of MST:", total_cost)
+
+
+V = int(input("Enter number of vertices: "))
+E = int(input("Enter number of edges: "))
+
+adj = [[] for _ in range(V)]
+
+print("Enter edges in format: u v weight")
+
+for _ in range(E):
+    u, v, w = map(int, input().split())
+    adj[u].append((v, w))
+    adj[v].append((u, w))
+
+prim_mst(V, adj)

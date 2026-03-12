@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-struct Item {
+struct Item 
+{
     int weight;
     int profit;
     float ratio;
